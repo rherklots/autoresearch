@@ -64,7 +64,7 @@ def compute_lpips_score(image_a_path: str, image_b_path: str, lpips_model) -> fl
 
 def compute_multi_ref_score(generated_path: str, ref_dir: Path, lpips_model) -> float:
     """Average LPIPS against all reference images. Returns mean distance."""
-    refs = sorted(ref_dir.glob("ref_*.png"))
+    refs = sorted(ref_dir.glob("ref_*.png")) + sorted(ref_dir.glob("ref*.jpg"))
     if not refs:
         raise ValueError(f"No reference images found in {ref_dir}")
     scores = [compute_lpips_score(generated_path, str(r), lpips_model) for r in refs]
